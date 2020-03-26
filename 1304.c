@@ -7,30 +7,15 @@ int main(int argc, char *argv[])
     return 0;
 }
 int* sumZero(int n, int* returnSize){
-    int *result = malloc(n * sizeof(int));
+    int *result = calloc(n, sizeof(int));
+    int num;
     *returnSize = n;
-    int frontp;
-    int midp;
-    int endp;
-    int i = 1;
-    if(n % 2 == 0)
+    
+    for(int i = 0; i < n/2; ++i)
     {
-        for(frontp = n/2 - 1, endp = n/2; frontp >= 0; --frontp, ++endp)
-        {
-            result[frontp] = -i;
-            result[endp] = i;
-            ++i;
-        }
-    } else
-    {
-        midp = n/2;
-        result[midp] = 0;
-        for(frontp = midp - 1, endp = midp + 1; frontp >= 0; --frontp, ++endp)
-        {
-            result[frontp] = -i;
-            result[endp] = i;
-            ++i;
-        }
+        num = n/2 - i;
+        result[i] = num;
+        result[n - i - 1] = -num;
     }
     return result;
 }
