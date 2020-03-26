@@ -11,31 +11,15 @@ int** flipAndInvertImage(int** A, int ASize, int* AColSize, int* returnSize, int
     *returnSize = ASize;
     *returnColumnSizes = AColSize;
     int colSize = *AColSize;
-    int **result = malloc(ASize * sizeof(int*));
-    int n;
+    int tmp;
     for (size_t i = 0; i < ASize; i++)
     {
-        *(result + i) = malloc(colSize * sizeof(int));
-    }
-    if(colSize == 1)
-    {
-        for (size_t i = 0; i < ASize; i++)
+        for (size_t j = 0; j < (colSize + 1) / 2; j++)
         {
-            result[i][0] = !A[i][0];
-        }
-        
-    }
-    for (size_t i = 0; i < ASize; i++)
-    {
-        for (size_t j = 0; j < colSize/2; j++)
-        {
-            result[i][j] = !A[i][colSize - j - 1];
-            result[i][colSize - j - 1] = !A[i][j];
-            if(colSize % 2 != 0)
-            {
-                result[i][colSize/2] = !A[i][colSize/2];
-            }
+            tmp = A[i][j];
+            A[i][j] = A[i][colSize - 1 - j] ^ 1;
+            A[i][colSize - 1 - j] = tmp ^ 1;
         }
     }
-    return result;
+    return A;
 }
