@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
     
     return 0;
 }
-#define min(a, b) ((a) > (b) ? (a) : (b))
 int* luckyNumbers (int** matrix, int matrixSize, int* matrixColSize, int* returnSize){
+    #define min(a, b) ((a) > (b) ? (a) : (b))
     size_t colSize = *matrixColSize;
     int *result = malloc(min(matrixSize, colSize) * sizeof(int));
     //brute force
@@ -20,8 +20,11 @@ int* luckyNumbers (int** matrix, int matrixSize, int* matrixColSize, int* return
 
     int rec_r[matrixSize];
     int rec_c[colSize];
-    min_r = matrix[0][0];
-    max_c = matrix[0][0];
+    for (size_t i = 0; i < colSize; i++)
+    {
+        rec_c[i] = matrix[0][i];
+    }
+    
     for (size_t i = 0; i < matrixSize; i++)
     {
         min_r = matrix[i][0];
@@ -31,20 +34,12 @@ int* luckyNumbers (int** matrix, int matrixSize, int* matrixColSize, int* return
             {
                 min_r = tmp;
             }
-        }
-        rec_r[i] = min_r;
-    }
-    for (size_t i = 0; i < colSize; i++)
-    {
-        max_c = matrix[0][i];
-        for(size_t j = 0; j < matrixSize; ++j)
-        {
-            if((tmp = matrix[j][i]) > max_c)
+            if(tmp > rec_c[j])
             {
-                max_c = tmp;
+                rec_c[j] = tmp;
             }
         }
-        rec_c[i] = max_c;
+        rec_r[i] = min_r;
     }
     for (size_t i = 0; i < matrixSize; i++)
     {
