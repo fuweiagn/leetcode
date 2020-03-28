@@ -10,11 +10,9 @@ int main(int argc, char *argv[])
 }
 int* sortArrayByParity(int* A, int ASize, int* returnSize){
     int *result = malloc(ASize * sizeof(int));
-    int *odd= malloc(ASize * sizeof(int));
-    int *even= malloc(ASize * sizeof(int));
 
-    size_t count_odd = 0;
-    size_t count_even = 0;
+    size_t l = 0;
+    size_t r = ASize - 1;
 
     int num;
     for (size_t i = 0; i < ASize; i++)
@@ -22,16 +20,14 @@ int* sortArrayByParity(int* A, int ASize, int* returnSize){
         num = A[i];
         if(num % 2 == 0)
         {
-            even[count_even] = num;
-            ++count_even;
+            result[l] = num;
+            ++l;
         } else
         {
-            odd[count_odd] = num;
-            ++count_odd;
+            result[r] = num;
+            --r;
         }
     }
-    memcpy(result, even, count_even * sizeof(int));
-    memcpy(result + count_even, odd, count_odd * sizeof(int));
     *returnSize = ASize;
     return result;
 }
