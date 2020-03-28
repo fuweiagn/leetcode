@@ -9,25 +9,22 @@ int main(int argc, char *argv[])
     return 0;
 }
 int* sortArrayByParity(int* A, int ASize, int* returnSize){
-    int *result = malloc(ASize * sizeof(int));
-
-    size_t l = 0;
-    size_t r = ASize - 1;
-
-    int num;
-    for (size_t i = 0; i < ASize; i++)
+    #define swap(p1, p2) int tmp = *p1; \
+    *p1 = *p2; \
+    *p2 = tmp; 
+    int *s = A;
+    int *e = A + ASize - 1;
+    while (s < e)
     {
-        num = A[i];
-        if(num % 2 == 0)
+        if(*s % 2 == 1)
         {
-            result[l] = num;
-            ++l;
+            swap(s, e);
+            --e;
         } else
         {
-            result[r] = num;
-            --r;
+            ++s;
         }
     }
     *returnSize = ASize;
-    return result;
+    return A;
 }
