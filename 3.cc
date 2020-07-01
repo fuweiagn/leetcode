@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <unordered_set>
 using namespace std;
 
@@ -11,18 +11,25 @@ int main() {
     return 0;
 }
 int lengthOfLongestSubstring(string s) {
+    if (s.length() < 2) return s.length();
+    int l = 0;
+    int r = 0;
     int maxLen = 0;
-    for (int i = 0; i < s.length(); i++) {
-        unordered_set<char> set;
-        set.insert(s[i]);
-        for (int j = i + 1; j < s.length(); j++) {
-            char c = s[j];
-            if (set.find(c) != set.end()) break;
-            else {
-                set.insert(c);
-            }
+    int length = 0;
+    unordered_map<char, int> map;
+
+    while (r < s.length()) {
+        char c = s[r];
+        if (map.find(c) != map.end() && map[c] >= l) { // found
+            l = map[c] + 1;
+            length = r - l;
         }
-        if (set.size() > maxLen) maxLen = set.size();
+        map[c] = r;
+
+        r++;
+        length++;
+        maxLen = max(length, maxLen);
     }
+    
     return maxLen;
 }
