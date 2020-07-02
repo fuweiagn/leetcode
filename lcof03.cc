@@ -11,13 +11,14 @@ int main() {
     return 0;
 }
 int findRepeatNumber(vector<int>& nums) {
-    unordered_set<int> set;
-    for (int i : nums) {
-        if (set.find(i) != set.end()) {
-            return i;
+    vector<int> count(nums.size(), 0);
+    for (int n : nums) {
+        if (count[n] > 0) {
+            return n;
         }
         else {
-            set.insert(i);
+            count[n]++;
         }
     }
+    return 0;
 }
