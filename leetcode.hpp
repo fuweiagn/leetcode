@@ -24,38 +24,38 @@ struct TreeNode {
 };
 
 // Tree Node
-// class Node {
-// public:
-//     int val;
-//     Node* left;
-//     Node* right;
-
-//     Node() {}
-
-//     Node(int _val) {
-//         val = _val;
-//         left = NULL;
-//         right = NULL;
-//     }
-
-//     Node(int _val, Node* _left, Node* _right) {
-//         val = _val;
-//         left = _left;
-//         right = _right;
-//     }
-// };
-
-// "Random linked list" class
 class Node {
 public:
     int val;
-    Node* next;
-    Node* random;
-    
+    Node* left;
+    Node* right;
+
+    Node() {}
+
     Node(int _val) {
         val = _val;
-        next = NULL;
-        random = NULL;
+        left = NULL;
+        right = NULL;
+    }
+
+    Node(int _val, Node* _left, Node* _right) {
+        val = _val;
+        left = _left;
+        right = _right;
     }
 };
+
+// "Random linked list" class
+// class Node {
+// public:
+//     int val;
+//     Node* next;
+//     Node* random;
+    
+//     Node(int _val) {
+//         val = _val;
+//         next = NULL;
+//         random = NULL;
+//     }
+// };
 
