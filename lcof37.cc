@@ -14,7 +14,6 @@ int main()
     b->left = c;
     b->right = d;
     string data = serialize(root);
-    cout << data << endl;
     deserialize(data);
 
     return 0;
@@ -26,7 +25,7 @@ string serialize(TreeNode *root)
 
     queue<TreeNode *> q;
     q.push(root);
-    string data;
+    ostringstream oss;
 
     while (!q.empty())
     {
@@ -35,19 +34,17 @@ string serialize(TreeNode *root)
 
         if (n)
         {
-            data += to_string(n->val);
-            data += ",";
+            oss << n->val << " ";
             q.push(n->left);
             q.push(n->right);
         }
         else
         {
-            data += "null,";
+            oss << "null ";
         }
     }
 
-    data.erase(data.end() - 1);
-    return data;
+    return oss.str();
 }
 
 TreeNode *deserialize(string data)
@@ -55,18 +52,17 @@ TreeNode *deserialize(string data)
     if (data.empty()) return nullptr;
 
     // split data
-    vector<string> v;
-    size_t pos = 0;
+    vector<TreeNode*> v;
+    istringstream s(data);
     string token;
-    while ((pos = data.find(",")) != string::npos)
-    {
-        token = data.substr(0, pos);
-        v.push_back(token);
-        data.erase(0, pos + 1);
+    while (s >> token) {
+        if (token == "null") v.push_back(nullptr);
+        else {
+            v.push_back(new TreeNode(stoi(token)));
+        }
     }
-    v.push_back(data);
 
-    TreeNode *root = new TreeNode(stoi(v[0]));
+    TreeNode *root = v[0];
     queue<TreeNode*> q;
     q.push(root);
 
@@ -75,15 +71,15 @@ TreeNode *deserialize(string data)
     {
         TreeNode* n = q.front();
         q.pop();
-        if (v[i] != "null") {
-            TreeNode* left = new TreeNode(stoi(v[i]));
+        if (v[i]) {
+            TreeNode* left = v[i];
             n->left = left;
             q.push(left);
         }
         i++;
 
-        if (v[i] != "null") {
-            TreeNode* right = new TreeNode(stoi(v[i]));
+        if (v[i]) {
+            TreeNode* right = v[i];
             n->right = right;
             q.push(right);
         }
