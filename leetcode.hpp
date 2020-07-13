@@ -7,6 +7,7 @@
 #include <set>
 #include <stack>
 #include <queue>
+#include <sstream>
 
 using namespace std;
 
