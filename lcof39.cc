@@ -5,14 +5,13 @@ int main() {
     return 0;
 }
 int majorityElement(vector<int>& nums) {
-    unordered_map<int, int> map;
-    int size = nums.size();
+    int m;
+    int sum = 0;
 
-    for (int n : nums) {
-        int& cnt = map[n];
-        cnt++;
-        if (cnt > size / 2) return n;
+    for (int i = 0; i < nums.size(); i++) {
+        if (sum == 0) m = nums[i];
+        sum += nums[i] == m ? 1 : -1;
     }
 
-    return -1;
+    return m;
 }
