@@ -5,22 +5,35 @@ int main()
 
     return 0;
 }
-int maxDepth(TreeNode *root)
+// return negative integer if subtree is not balanced or a postive depth
+int depth(TreeNode *root)
 {
     if (!root)
         return 0;
 
-    return 1 + max(maxDepth(root->left), maxDepth(root->right));
+    int left = depth(root->left);
+    if (left < 0)
+        return -1;
+    int right = depth(root->right);
+    if (right < 0)
+        return -1;
+
+    if (abs(left - right) > 1)
+    {
+        return -1;
+    }
+    else
+    {
+        return max(left, right) + 1;
+    }
 }
+
 bool isBalanced(TreeNode *root)
 {
-    if (!root)
-        return true;
-
-    if (abs((maxDepth(root->left) - maxDepth(root->right))) > 1)
+    if (depth(root) < 0)
     {
         return false;
     }
 
-    return isBalanced(root->left) && isBalanced(root->right);
+    return true;
 }
